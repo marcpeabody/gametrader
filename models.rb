@@ -6,9 +6,16 @@ ActiveRecord::Base.configurations = {
     'username' => 'root',
     'password' => '',
     'database' => 'gametrader'
+  },
+  'production' => {
+    'adapter' => 'postgresql',
+    'host' => 'ec2-107-22-181-228.compute-1.amazonaws.com',
+    'username' => 'kuxjcchuex',
+    'password' => 'NSdbpkkith7A2vFJgJKp',
+    'database' => 'kuxjcchuex'
   }
 }
-config = ActiveRecord::Base.configurations['development']
+config = ActiveRecord::Base.configurations[ENV['RACK_ENV'] || 'development']
 begin
 ActiveRecord::Base.establish_connection config.merge('database' => 'postgres')
 ActiveRecord::Base.connection.create_database(config['database'], config.merge('encoding' => 'utf8'))
